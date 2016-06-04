@@ -3,4 +3,5 @@ MySQL:
   Port: 3306
   Username: root
   Password: Password
-  Database: freunde
+  Database: friends
+  TablePrefix: fr_

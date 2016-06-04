@@ -1,5 +1,5 @@
 main: partyAndFriends.main.Main
 name: FriendsAPIForPartyAndFriends
-version: 1.1.0
+version: ${project.version}
 author: Simonsator
 load: STARTUP
