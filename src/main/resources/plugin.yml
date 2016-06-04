@@ -1,4 +1,4 @@
-main: partyAndFriends.main.Main
+main: de.simonsator.partyandfriends.spigot.main.Main
 name: FriendsAPIForPartyAndFriends
 version: ${project.version}
 author: Simonsator
