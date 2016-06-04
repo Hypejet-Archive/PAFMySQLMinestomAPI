@@ -31,17 +31,26 @@ $RECYCLE.BIN/
 # Thumbnails
 ._*
 
-# Files that might appear in the root of a volume
-.DocumentRevisions-V100
-.fseventsd
+# Files that might appear on external disk
 .Spotlight-V100
-.TemporaryItems
 .Trashes
-.VolumeIcon.icns
-
+*.class
 # Directories potentially created on remote AFP share
 .AppleDB
 .AppleDesktop
 Network Trash Folder
 Temporary Items
 .apdisk
+.metadata/*
+.recommenders/*
+.settings/
+**/.settings/
+.classpath
+**/.classpath
+.project
+**/.project
+target/
+**/bin
+**/target/
+.classpath
+.project
