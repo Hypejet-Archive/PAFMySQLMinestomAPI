@@ -38,6 +38,8 @@ public class MySQL {
 	 *            The port of the MySQL server
 	 * @param pDatabase
 	 *            The MySQL database
+	 * @param pTablePrefix
+	 *            The prefix of the MySQL table
 	 * @throws ClassNotFoundException
 	 *             Will never happen, because it is integrated in Bungeecord
 	 * @throws SQLException
