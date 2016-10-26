@@ -55,7 +55,7 @@
 						<configuration>
 							<relocations>
 								<relocation>
-									<pattern>redis.clients.jedis</pattern>
+									<pattern>de.simonsator</pattern>
 								</relocation>
 							</relocations>
 						</configuration>
