@@ -1,94 +1,183 @@
 package de.simonsator.partyandfriends.spigot.mysql;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.UUID;
 
+import de.simonsator.partyandfriends.communication.sql.MySQLData;
+import de.simonsator.partyandfriends.communication.sql.SQLCommunication;
 import org.bukkit.entity.Player;
 
 import de.simonsator.partyandfriends.spigot.main.Main;
 
-public class MySQL {
+public class MySQL extends SQLCommunication {
+	private final String TABLE_PREFIX;
 
-	/**
-	 * The MySQL database
-	 */
-	private String database;
-	/**
-	 * The url of the SQL server
-	 */
-	private String url;
-	private String tablePrefix;
-	private Connection connnection;
-
-	/**
-	 * Connects to the MySQL server
-	 * 
-	 * @param pHost
-	 *            The MySQL host
-	 * @param pUsername
-	 *            The MySQL user
-	 * @param pPassword
-	 *            The MySQL password
-	 * @param pPort
-	 *            The port of the MySQL server
-	 * @param pDatabase
-	 *            The MySQL database
-	 * @param pTablePrefix
-	 *            The prefix of the MySQL table
-	 * @throws ClassNotFoundException
-	 *             Will never happen, because it is integrated in Bungeecord
-	 * @throws SQLException
-	 *             Happens if the plugin cannot connect to the MySQL Server
-	 * @author Simonsator
-	 * @version 1.0.0
-	 * @param pTablePrefix
-	 */
-	public void firstConnect(String pHost, String pUsername, String pPassword, int pPort, String pDatabase,
-			String pTablePrefix) throws ClassNotFoundException, SQLException {
-		url = "jdbc:mysql://" + pHost + ":" + pPort + "/?user=" + pUsername + "&password=" + pPassword;
-		database = pDatabase;
-		tablePrefix = pTablePrefix;
-		connnection = createConnection();
+	public MySQL(MySQLData pMySQLData) {
+		super(pMySQLData.DATABASE, "jdbc:mysql://" + pMySQLData.HOST + ":" + pMySQLData.PORT, pMySQLData.USERNAME, pMySQLData.PASSWORD);
+		this.TABLE_PREFIX = pMySQLData.TABLE_PREFIX;
 	}
 
-	public Connection getConnection() {
+	public UUID getUUID(int pPlayerID) {
+		Connection con = getConnection();
+		Statement stmt = null;
+		ResultSet rs = null;
 		try {
-			if (connnection != null && connnection.isValid(6))
-				return connnection;
+			rs = (stmt = con.createStatement()).executeQuery("select player_uuid from `" + DATABASE + "`." + TABLE_PREFIX
+					+ "players WHERE player_id='" + pPlayerID + "' LIMIT 1");
+			if (rs.next()) {
+				return UUID.fromString(rs.getString("player_uuid"));
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-		return connnection = createConnection();
-	}
-
-	private Connection createConnection() {
-		try {
-			closeConnection();
-			Class.forName("com.mysql.jdbc.Driver");
-			return DriverManager.getConnection(url);
-		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+		} finally {
+			close(rs, stmt);
 		}
 		return null;
 	}
 
-	public void closeConnection() {
+	/**
+	 * Returns the ID of a player
+	 *
+	 * @param pUuid The UUID of the player
+	 * @return Returns the ID of a player
+	 */
+	public int getPlayerID(UUID pUuid) {
+		Connection con = getConnection();
+		Statement stmt = null;
+		ResultSet rs = null;
 		try {
-			if (connnection != null)
-				connnection.close();
+			rs = (stmt = con.createStatement()).executeQuery("select player_id from `" + DATABASE + "`." + TABLE_PREFIX
+					+ "players WHERE player_uuid='" + pUuid + "' LIMIT 1");
+			if (rs.next()) {
+				return rs.getInt("player_id");
+			}
 		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, stmt);
 		}
+		return -1;
 	}
 
-	public int getPlayerID(Player pPlayer) {
-		if (Main.getInstance().getConfig().getString("General.OfflineServer").equalsIgnoreCase("true"))
-			return getPlayerID(pPlayer.getName());
-		return getPlayerID(pPlayer.getUniqueId());
+	/**
+	 * Returns the ID of a player
+	 *
+	 * @param pPlayerName Name of the player Returns the ID of a player
+	 * @return Returns the ID of a player
+	 */
+	public int getPlayerID(String pPlayerName) {
+		Connection con = getConnection();
+		Statement stmt = null;
+		ResultSet rs = null;
+		try {
+			rs = (stmt = con.createStatement()).executeQuery("select player_id from `" + DATABASE + "`." + TABLE_PREFIX
+					+ "players WHERE player_name='" + pPlayerName + "' LIMIT 1");
+			if (rs.next()) {
+				return rs.getInt("player_id");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, stmt);
+		}
+		return -1;
+	}
+
+
+	/**
+	 * Gives out the IDs of the friends of a player
+	 *
+	 * @param pPlayerID The ID of the player
+	 * @return Returns the IDs of the friends of a player
+	 */
+	public ArrayList<Integer> getFriends(int pPlayerID) {
+		Connection con = getConnection();
+		Statement stmt = null;
+		ResultSet rs = null;
+		ArrayList<Integer> list = new ArrayList<>();
+		try {
+			rs = (stmt = con.createStatement()).executeQuery("select friend2_id from `" + DATABASE + "`." + TABLE_PREFIX
+					+ "friend_assignment WHERE friend1_id='" + pPlayerID + "'");
+			while (rs.next())
+				list.add(rs.getInt("friend2_id"));
+			stmt.close();
+			rs.close();
+			rs = (stmt = con.createStatement()).executeQuery("select friend1_id from `" + DATABASE + "`." + TABLE_PREFIX
+					+ "friend_assignment WHERE friend2_id='" + pPlayerID + "'");
+			while (rs.next())
+				list.add(rs.getInt("friend1_id"));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, stmt);
+		}
+		return list;
+	}
+
+	/**
+	 * Returns the name of a player
+	 *
+	 * @param pPlayerID The ID of the player
+	 * @return Returns the name of a player
+	 */
+	public String getName(int pPlayerID) {
+		Connection con = getConnection();
+		Statement stmt = null;
+		ResultSet rs = null;
+		try {
+			rs = (stmt = con.createStatement()).executeQuery("select player_name from `" + DATABASE + "`." + TABLE_PREFIX
+					+ "players WHERE player_id='" + pPlayerID + "' LIMIT 1");
+			if (rs.next())
+				return rs.getString("player_name");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, stmt);
+		}
+		return "";
+	}
+
+	public boolean hasRequestFrom(int pReceiver, int pRequester) {
+		Connection con = getConnection();
+		Statement stmt = null;
+		ResultSet rs = null;
+		try {
+			rs = (stmt = con.createStatement()).executeQuery("select requester_id from `" + DATABASE + "`."
+					+ TABLE_PREFIX + "friend_request_assignment WHERE receiver_id='" + pReceiver + "' AND requester_id='"
+					+ pRequester + "' LIMIT 1");
+			if (rs.next())
+				return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, stmt);
+		}
+		return false;
+	}
+
+	/**
+	 * Returns the IDs of the friends from a player
+	 *
+	 * @param pPlayerID The ID of the player
+	 * @return Returns the IDs of the friends from a player
+	 */
+	public ArrayList<Integer> getRequests(int pPlayerID) {
+		Connection con = getConnection();
+		Statement stmt = null;
+		ResultSet rs = null;
+		ArrayList<Integer> requests = new ArrayList<>();
+		try {
+			rs = (stmt = con.createStatement()).executeQuery("select requester_id from `" + DATABASE + "`."
+					+ TABLE_PREFIX + "friend_request_assignment WHERE receiver_id='" + pPlayerID + "'");
+			while (rs.next())
+				requests.add(rs.getInt("requester_id"));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, stmt);
+		}
+		return requests;
 	}
 
 	public int getSettingsWorth(int pPlayerID, int pSettingsID) {
@@ -97,7 +186,7 @@ public class MySQL {
 		ResultSet rs = null;
 		try {
 			rs = (stmt = con.createStatement()).executeQuery(
-					"select settings_worth from `" + database + "`." + tablePrefix + "settings WHERE player_id='"
+					"select settings_worth from `" + DATABASE + "`." + TABLE_PREFIX + "settings WHERE player_id='"
 							+ pPlayerID + "' AND settings_id='" + pSettingsID + "' LIMIT 1");
 			if (rs.next()) {
 				return rs.getInt("settings_worth");
@@ -105,56 +194,26 @@ public class MySQL {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			try {
-				if (rs != null)
-					rs.close();
-				if (stmt != null)
-					stmt.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			close(rs, stmt);
 		}
 		return 0;
 	}
 
-	/**
-	 * Gives out the IDs of the friends of a player
-	 * 
-	 * @param pPlayerID
-	 *            The ID of the player
-	 * @return Returns the IDs of the friends of a player
-	 * @author Simonsator
-	 * @version 1.0.0
-	 */
-	public ArrayList<Integer> getFriends(int pPlayerID) {
+	public Timestamp getLastOnline(int pPlayerID) {
 		Connection con = getConnection();
 		Statement stmt = null;
 		ResultSet rs = null;
-		ArrayList<Integer> list = new ArrayList<>();
 		try {
-			rs = (stmt = con.createStatement()).executeQuery("select friend2_id from `" + database + "`." + tablePrefix
-					+ "friend_assignment WHERE friend1_id='" + pPlayerID + "'");
-			while (rs.next())
-				list.add(rs.getInt("friend2_id"));
-			stmt.close();
-			rs.close();
-			rs = (stmt = con.createStatement()).executeQuery("select friend1_id from `" + database + "`." + tablePrefix
-					+ "friend_assignment WHERE friend2_id='" + pPlayerID + "'");
-			while (rs.next())
-				list.add(rs.getInt("friend1_id"));
+			rs = (stmt = con.createStatement()).executeQuery("select last_online from `" + DATABASE + "`."
+					+ TABLE_PREFIX + "players WHERE player_id='" + pPlayerID + "' LIMIT 1");
+			if (rs.next())
+				return rs.getTimestamp("last_online");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			try {
-				if (stmt != null)
-					stmt.close();
-				if (rs != null)
-					rs.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			close(rs, stmt);
 		}
-		return list;
+		return null;
 	}
 
 	public boolean isAFriendOf(int pPlayerID1, int pPlayerID2) {
@@ -162,7 +221,7 @@ public class MySQL {
 		Statement stmt = null;
 		ResultSet rs = null;
 		try {
-			rs = (stmt = con.createStatement()).executeQuery("Select friend1_id FROM `" + database + "`." + tablePrefix
+			rs = (stmt = con.createStatement()).executeQuery("Select friend1_id FROM `" + DATABASE + "`." + TABLE_PREFIX
 					+ "friend_assignment WHERE (friend1_id = '" + pPlayerID1 + "' AND friend2_id='" + pPlayerID2
 					+ "') OR (friend1_id = '" + pPlayerID2 + "' AND friend2_id='" + pPlayerID1 + "') LIMIT 1");
 			if (rs.next()) {
@@ -171,118 +230,9 @@ public class MySQL {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			try {
-				if (stmt != null)
-					stmt.close();
-				if (rs != null)
-					rs.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			close(rs, stmt);
 		}
 		return false;
-	}
-
-	/**
-	 * Returns the name of a player
-	 * 
-	 * @param pPlayerID
-	 *            The ID of the player
-	 * @return Returns the name of a player
-	 * @author Simonsator
-	 * @version 1.0.0
-	 */
-	public String getName(int pPlayerID) {
-		Connection con = getConnection();
-		Statement stmt = null;
-		ResultSet rs = null;
-		try {
-			rs = (stmt = con.createStatement()).executeQuery("select player_name from `" + database + "`." + tablePrefix
-					+ "players WHERE player_id='" + pPlayerID + "' LIMIT 1");
-			if (rs.next()) {
-				return rs.getString("player_name");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (stmt != null)
-					stmt.close();
-				if (rs != null)
-					rs.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return "";
-	}
-
-	/**
-	 * Returns the ID of a player
-	 * 
-	 * @param pUuid
-	 *            The UUID of the player
-	 * @return Returns the ID of a player
-	 * @author Simonsator
-	 * @version 1.0.0
-	 */
-	public int getPlayerID(UUID pUuid) {
-		Connection con = getConnection();
-		Statement stmt = null;
-		ResultSet rs = null;
-		try {
-			rs = (stmt = con.createStatement()).executeQuery("select player_id from `" + database + "`." + tablePrefix
-					+ "players WHERE player_uuid='" + pUuid + "' LIMIT 1");
-			if (rs.next()) {
-				return rs.getInt("player_id");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (stmt != null)
-					stmt.close();
-				if (rs != null)
-					rs.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return -1;
-	}
-
-	/**
-	 * Returns the ID of a player
-	 * 
-	 * @param pPlayerName
-	 *            Name of the player Returns the ID of a player
-	 * @return Returns the ID of a player
-	 * @author Simonsator
-	 * @version 1.0.0
-	 */
-	public int getPlayerID(String pPlayerName) {
-		Connection con = getConnection();
-		Statement stmt = null;
-		ResultSet rs = null;
-		try {
-			rs = (stmt = con.createStatement()).executeQuery("select player_id from `" + database + "`." + tablePrefix
-					+ "players WHERE player_name='" + pPlayerName + "' LIMIT 1");
-			if (rs.next()) {
-				return rs.getInt("player_id");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (stmt != null)
-					stmt.close();
-				if (rs != null)
-					rs.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		return -1;
 	}
 
 }
