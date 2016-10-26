@@ -33,11 +33,7 @@ public class Main extends JavaPlugin {
 	public MySQL getConnection() {
 		return connection;
 	}
-
-	public void setVerbindung(MySQL verbindung) {
-		this.connection = verbindung;
-	}
-
+	
 	public static Main getInstance() {
 		return instance;
 	}
