@@ -16,7 +16,7 @@ public abstract class PAFPlayerClass implements PAFPlayer {
 
 	@Override
 	public String toString() {
-		return "{Name:\"" + getName() + "\", DisplayName:\"" + getDisplayName() + "\"}";
+		return "{Name:\"" + getName() + "\", UUID:\"" + getUniqueId() + "\"}";
 	}
 
 }
