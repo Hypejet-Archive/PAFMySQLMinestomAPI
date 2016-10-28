@@ -9,7 +9,7 @@ public abstract class PAFPlayerClass implements PAFPlayer {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof de.simonsator.partyandfriends.api.pafplayers.PAFPlayer)
+		if (obj instanceof PAFPlayer)
 			return ((PAFPlayer) obj).getUniqueId().equals(this.getUniqueId());
 		return false;
 	}
