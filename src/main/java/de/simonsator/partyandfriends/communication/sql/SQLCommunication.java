@@ -19,12 +19,23 @@ public abstract class SQLCommunication {
 	private Connection connection;
 	private final String USER_NAME;
 	private final String PASSWORD;
+	private final boolean USE_SSL;
 
-	protected SQLCommunication(String pDatabase, String pURL, String pUserName, String pPassword) {
+	public SQLCommunication(String pDatabase, String pURL, String pUserName, String pPassword) {
 		this.DATABASE = pDatabase;
 		this.URL = pURL;
 		this.USER_NAME = pUserName;
 		this.PASSWORD = pPassword;
+		this.USE_SSL = false;
+		connection = createConnection();
+	}
+
+	public SQLCommunication(String pDatabase, String pURL, String pUserName, String pPassword, boolean pUseSSL) {
+		this.DATABASE = pDatabase;
+		this.URL = pURL;
+		this.USER_NAME = pUserName;
+		this.PASSWORD = pPassword;
+		this.USE_SSL = pUseSSL;
 		connection = createConnection();
 	}
 
@@ -78,7 +89,8 @@ public abstract class SQLCommunication {
 			Properties properties = new Properties();
 			properties.setProperty("user", USER_NAME);
 			properties.setProperty("password", PASSWORD);
-			return DriverManager.getConnection(URL, USER_NAME, PASSWORD);
+			properties.setProperty("useSSL", "false");
+			return DriverManager.getConnection(URL, properties);
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}

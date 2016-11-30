@@ -16,7 +16,7 @@ public class Main extends JavaPlugin {
 		mySQLData = new MySQLData(getConfig().getString("MySQL.Host"),
 				getConfig().getString("MySQL.Username"), getConfig().getString("MySQL.Password"),
 				getConfig().getInt("MySQL.Port"), getConfig().getString("MySQL.Database"),
-				getConfig().getString("MySQL.TablePrefix"));
+				getConfig().getString("MySQL.TablePrefix"), getConfig().getBoolean("MySQL.UseSSL"));
 		new PAFPlayerManagerMySQL(mySQLData);
 	}
 

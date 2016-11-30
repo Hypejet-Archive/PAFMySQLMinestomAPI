@@ -1,20 +1,17 @@
 package de.simonsator.partyandfriends.spigot.mysql;
 
+import de.simonsator.partyandfriends.communication.sql.MySQLData;
+import de.simonsator.partyandfriends.communication.sql.SQLCommunication;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.UUID;
-
-import de.simonsator.partyandfriends.communication.sql.MySQLData;
-import de.simonsator.partyandfriends.communication.sql.SQLCommunication;
-import org.bukkit.entity.Player;
-
-import de.simonsator.partyandfriends.spigot.main.Main;
 
 public class MySQL extends SQLCommunication {
 	private final String TABLE_PREFIX;
 
 	public MySQL(MySQLData pMySQLData) {
-		super(pMySQLData.DATABASE, "jdbc:mysql://" + pMySQLData.HOST + ":" + pMySQLData.PORT, pMySQLData.USERNAME, pMySQLData.PASSWORD);
+		super(pMySQLData.DATABASE, "jdbc:mysql://" + pMySQLData.HOST + ":" + pMySQLData.PORT, pMySQLData.USERNAME, pMySQLData.PASSWORD, pMySQLData.USE_SSL);
 		this.TABLE_PREFIX = pMySQLData.TABLE_PREFIX;
 	}
 

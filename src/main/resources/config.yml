@@ -5,3 +5,4 @@ MySQL:
   Password: Password
   Database: friends
   TablePrefix: fr_
+  UseSSL: false
