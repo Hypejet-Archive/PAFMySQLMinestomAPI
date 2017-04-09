@@ -1,8 +1,10 @@
 package de.simonsator.partyandfriends.spigot.main;
 
 import de.simonsator.partyandfriends.communication.sql.MySQLData;
+import de.simonsator.partyandfriends.spigot.mvdw.FriendCountPlaceHolderMVDW;
 import de.simonsator.partyandfriends.spigot.pafplayers.manager.PAFPlayerManagerMySQL;
 import de.simonsator.partyandfriends.utilities.disable.Disabler;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin {
@@ -18,6 +20,8 @@ public class Main extends JavaPlugin {
 				getConfig().getInt("MySQL.Port"), getConfig().getString("MySQL.Database"),
 				getConfig().getString("MySQL.TablePrefix"), getConfig().getBoolean("MySQL.UseSSL"));
 		new PAFPlayerManagerMySQL(mySQLData);
+		if (Bukkit.getPluginManager().isPluginEnabled("MVdWPlaceholderAPI"))
+			new FriendCountPlaceHolderMVDW(this);
 	}
 
 	public void onDisable() {
