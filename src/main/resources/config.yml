@@ -6,3 +6,4 @@ MySQL:
   Database: friends
   TablePrefix: fr_
   UseSSL: false
+IsOnlineServer: true
