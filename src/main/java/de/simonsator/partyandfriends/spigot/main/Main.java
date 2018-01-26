@@ -20,8 +20,14 @@ public class Main extends JavaPlugin {
 				getConfig().getInt("MySQL.Port"), getConfig().getString("MySQL.Database"),
 				getConfig().getString("MySQL.TablePrefix"), getConfig().getBoolean("MySQL.UseSSL"));
 		new PAFPlayerManagerMySQL(mySQLData);
-		if (Bukkit.getPluginManager().isPluginEnabled("MVdWPlaceholderAPI"))
-			new FriendCountPlaceHolderMVDW(this);
+		final JavaPlugin plugin = this;
+		getServer().getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
+			@Override
+			public void run() {
+				if (Bukkit.getPluginManager().isPluginEnabled("MVdWPlaceholderAPI"))
+					new FriendCountPlaceHolderMVDW(plugin);
+			}
+		}, 10);
 	}
 
 	public void onDisable() {
