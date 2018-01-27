@@ -3,4 +3,4 @@ name: FriendsAPIForPartyAndFriends
 version: ${project.version}
 author: Simonsator
 load: STARTUP
-softdepend: [MVdWPlaceholderAPI]
+softdepend: [MVdWPlaceholderAPI, PlaceholderAPI]

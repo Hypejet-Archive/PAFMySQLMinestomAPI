@@ -1,8 +1,9 @@
 package de.simonsator.partyandfriends.spigot.main;
 
 import de.simonsator.partyandfriends.communication.sql.MySQLData;
-import de.simonsator.partyandfriends.spigot.mvdw.FriendCountPlaceHolderMVDW;
 import de.simonsator.partyandfriends.spigot.pafplayers.manager.PAFPlayerManagerMySQL;
+import de.simonsator.partyandfriends.spigot.placeholders.mvdw.FriendCountPlaceHolderMVDW;
+import de.simonsator.partyandfriends.spigot.placeholders.placeholderapi.FriendCountPlaceHolderPlaceholderAPI;
 import de.simonsator.partyandfriends.utilities.disable.Disabler;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -21,12 +22,11 @@ public class Main extends JavaPlugin {
 				getConfig().getString("MySQL.TablePrefix"), getConfig().getBoolean("MySQL.UseSSL"));
 		new PAFPlayerManagerMySQL(mySQLData);
 		final JavaPlugin plugin = this;
-		getServer().getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
-			@Override
-			public void run() {
-				if (Bukkit.getPluginManager().isPluginEnabled("MVdWPlaceholderAPI"))
-					new FriendCountPlaceHolderMVDW(plugin);
-			}
+		getServer().getScheduler().scheduleSyncDelayedTask(this, () -> {
+			if (Bukkit.getPluginManager().isPluginEnabled("MVdWPlaceholderAPI"))
+				new FriendCountPlaceHolderMVDW(plugin);
+			if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI"))
+				new FriendCountPlaceHolderPlaceholderAPI(plugin);
 		}, 10);
 	}
 

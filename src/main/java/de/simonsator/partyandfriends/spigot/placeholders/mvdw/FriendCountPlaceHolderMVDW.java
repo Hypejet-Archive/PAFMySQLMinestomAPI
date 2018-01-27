@@ -1,4 +1,4 @@
-package de.simonsator.partyandfriends.spigot.mvdw;
+package de.simonsator.partyandfriends.spigot.placeholders.mvdw;
 
 import be.maximvdw.placeholderapi.PlaceholderAPI;
 import be.maximvdw.placeholderapi.PlaceholderReplaceEvent;
@@ -10,7 +10,7 @@ import org.bukkit.plugin.Plugin;
  * @author Simonsator
  * @version 1.0.0 09.04.17
  */
-public class FriendCountPlaceHolderMVDW extends FriendCountPlaceHolder implements PlaceholderReplacer {
+public class FriendCountPlaceHolderMVDW implements PlaceholderReplacer, FriendCountPlaceHolder {
 	private final boolean IS_ONLINE_SERVER;
 
 	public FriendCountPlaceHolderMVDW(Plugin pPlugin) {
