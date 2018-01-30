@@ -9,16 +9,18 @@ public class FriendCountPlaceHolderPlaceholderAPI extends EZPlaceholderHook impl
 	private final boolean IS_ONLINE_SERVER;
 
 	public FriendCountPlaceHolderPlaceholderAPI(Plugin pPlugin) {
-		super(pPlugin, "friendcount");
+		super(pPlugin, "friendsapi");
 		IS_ONLINE_SERVER = pPlugin.getConfig().getBoolean("IsOnlineServer");
 	}
 
 	@Override
 	public String onPlaceholderRequest(Player pPlayer, String pIdentifier) {
-		if (IS_ONLINE_SERVER)
-			return getFriendCount(pPlayer.getUniqueId()).toString();
-		else
-			return getFriendCount(pPlayer.getName()).toString();
-
+		if (pIdentifier.equals("friendcount"))
+			if (IS_ONLINE_SERVER)
+				return getFriendCount(pPlayer.getUniqueId()).toString();
+			else
+				return getFriendCount(pPlayer.getName()).toString();
+		return null;
 	}
 }
+
