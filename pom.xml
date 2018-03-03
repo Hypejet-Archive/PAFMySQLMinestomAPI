@@ -6,7 +6,7 @@
 
 	<groupId>de.simonsator</groupId>
 	<artifactId>Party-and-Friends-MySQL-Edition-Spigot-API</artifactId>
-	<version>1.4.0</version>
+	<version>1.4.1</version>
 	<repositories>
 		<repository>
 			<id>spigot-repo</id>
