@@ -232,4 +232,38 @@ public class MySQL extends SQLCommunication {
 		return false;
 	}
 
+	public void setSetting(int pPlayerID, int pSettingsID, int pNewWorth) {
+		removeSetting(pPlayerID, pSettingsID);
+		if (pNewWorth != 0) {
+			Connection con = getConnection();
+			PreparedStatement prepStmt = null;
+			try {
+				prepStmt = con.prepareStatement(
+						"insert into  " + TABLE_PREFIX + "settings values (?, ?, ?)");
+				prepStmt.setInt(1, pPlayerID);
+				prepStmt.setInt(2, pSettingsID);
+				prepStmt.setInt(3, pNewWorth);
+				prepStmt.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(prepStmt);
+			}
+		}
+	}
+
+	private void removeSetting(int pPlayerID, int pSettingsID) {
+		Connection con = getConnection();
+		PreparedStatement prepStmt = null;
+		try {
+			prepStmt = con.prepareStatement("DELETE FROM  " + TABLE_PREFIX
+					+ "settings WHERE player_id = '" + pPlayerID + "' AND settings_id='" + pSettingsID + "' Limit 1");
+			prepStmt.execute();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(prepStmt);
+		}
+	}
+
 }

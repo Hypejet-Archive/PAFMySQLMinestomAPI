@@ -13,6 +13,8 @@ public interface PAFPlayer {
 
 	int getSettingsWorth(int pSettingsID);
 
+	void setSetting(int pSettingsID, int pNewWorth);
+
 	List<PAFPlayer> getRequests();
 
 	boolean hasRequestFrom(PAFPlayer pPlayer);

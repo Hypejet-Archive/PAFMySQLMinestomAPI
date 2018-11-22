@@ -42,6 +42,11 @@ public class PAFPlayerMySQL extends PAFPlayerClass {
 	}
 
 	@Override
+	public void setSetting(int pSettingsID, int pNewWorth) {
+		PAFPlayerManagerMySQL.getConnection().setSetting(ID, pSettingsID, pNewWorth);
+	}
+
+	@Override
 	public List<PAFPlayer> getRequests() {
 		return idListToPAFPlayerList(PAFPlayerManagerMySQL.getConnection().getRequests(ID));
 	}
@@ -58,7 +63,6 @@ public class PAFPlayerMySQL extends PAFPlayerClass {
 			list.add(((PAFPlayerManagerMySQL) PAFPlayerManager.getInstance()).getPlayer(playerID));
 		return list;
 	}
-
 
 	@Override
 	public PAFPlayer getPAFPlayer() {
