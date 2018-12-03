@@ -239,7 +239,7 @@ public class MySQL extends SQLCommunication {
 			PreparedStatement prepStmt = null;
 			try {
 				prepStmt = con.prepareStatement(
-						"insert into  " + TABLE_PREFIX + "settings values (?, ?, ?)");
+						"insert into `" + DATABASE + "`." + TABLE_PREFIX + "settings values (?, ?, ?)");
 				prepStmt.setInt(1, pPlayerID);
 				prepStmt.setInt(2, pSettingsID);
 				prepStmt.setInt(3, pNewWorth);
@@ -256,7 +256,7 @@ public class MySQL extends SQLCommunication {
 		Connection con = getConnection();
 		PreparedStatement prepStmt = null;
 		try {
-			prepStmt = con.prepareStatement("DELETE FROM  " + TABLE_PREFIX
+			prepStmt = con.prepareStatement("DELETE FROM `" + DATABASE + "`." + TABLE_PREFIX
 					+ "settings WHERE player_id = '" + pPlayerID + "' AND settings_id='" + pSettingsID + "' Limit 1");
 			prepStmt.execute();
 		} catch (SQLException e) {
