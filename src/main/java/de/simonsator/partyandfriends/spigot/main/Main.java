@@ -30,8 +30,8 @@ public class Main extends JavaPlugin {
 				new FriendRequestCountPlaceHolderMVDW(plugin);
 			}
 			if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
-				new FriendCountPlaceHolderPlaceholderAPI(plugin);
-				new FriendRequestCountPlaceholderAPI(plugin);
+				new FriendCountPlaceHolderPlaceholderAPI(plugin).hook();
+				new FriendRequestCountPlaceholderAPI(plugin).hook();
 			}
 		}, 10);
 	}
