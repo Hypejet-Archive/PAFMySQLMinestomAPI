@@ -90,6 +90,7 @@ public abstract class SQLCommunication {
 			properties.setProperty("user", USER_NAME);
 			properties.setProperty("password", PASSWORD);
 			properties.setProperty("useSSL", USE_SSL + "");
+			properties.setProperty("allowPublicKeyRetrieval", !USE_SSL + "");
 			return DriverManager.getConnection(URL, properties);
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
