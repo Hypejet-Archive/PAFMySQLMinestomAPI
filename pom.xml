@@ -43,7 +43,13 @@
 		<dependency>
 			<groupId>be.maximvdw</groupId>
 			<artifactId>MVdWPlaceholderAPI</artifactId>
-			<version>1.0.2-SNAPSHOT</version>
+			<version>2.1.1-SNAPSHOT</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.spigotmc</groupId>
+					<artifactId>spigot</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>me.clip</groupId>
