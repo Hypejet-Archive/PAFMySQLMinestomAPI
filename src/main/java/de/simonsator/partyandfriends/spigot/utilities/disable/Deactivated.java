@@ -1,4 +1,4 @@
-package de.simonsator.partyandfriends.utilities.disable;
+package de.simonsator.partyandfriends.spigot.utilities.disable;
 
 /**
  * @author 00pfl

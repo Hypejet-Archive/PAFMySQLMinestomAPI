@@ -1,4 +1,4 @@
-package de.simonsator.partyandfriends.communication.sql;
+package de.simonsator.partyandfriends.spigot.communication.sql;
 
 import java.sql.*;
 import java.util.Properties;

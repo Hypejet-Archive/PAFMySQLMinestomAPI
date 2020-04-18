@@ -1,12 +1,12 @@
 package de.simonsator.partyandfriends.spigot.pafplayers.manager;
 
-import de.simonsator.partyandfriends.communication.sql.MySQLData;
+import de.simonsator.partyandfriends.spigot.communication.sql.MySQLData;
 import de.simonsator.partyandfriends.spigot.api.pafplayers.PAFPlayer;
 import de.simonsator.partyandfriends.spigot.api.pafplayers.PAFPlayerManager;
 import de.simonsator.partyandfriends.spigot.mysql.MySQL;
 import de.simonsator.partyandfriends.spigot.pafplayers.mysql.PAFPlayerMySQL;
-import de.simonsator.partyandfriends.utilities.disable.Deactivated;
-import de.simonsator.partyandfriends.utilities.disable.Disabler;
+import de.simonsator.partyandfriends.spigot.utilities.disable.Deactivated;
+import de.simonsator.partyandfriends.spigot.utilities.disable.Disabler;
 
 import java.util.UUID;
 

@@ -1,7 +1,7 @@
 package de.simonsator.partyandfriends.spigot.mysql;
 
-import de.simonsator.partyandfriends.communication.sql.MySQLData;
-import de.simonsator.partyandfriends.communication.sql.SQLCommunication;
+import de.simonsator.partyandfriends.spigot.communication.sql.MySQLData;
+import de.simonsator.partyandfriends.spigot.communication.sql.SQLCommunication;
 
 import java.sql.*;
 import java.util.ArrayList;

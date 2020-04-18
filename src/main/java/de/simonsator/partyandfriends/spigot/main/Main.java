@@ -1,12 +1,12 @@
 package de.simonsator.partyandfriends.spigot.main;
 
-import de.simonsator.partyandfriends.communication.sql.MySQLData;
+import de.simonsator.partyandfriends.spigot.communication.sql.MySQLData;
 import de.simonsator.partyandfriends.spigot.pafplayers.manager.PAFPlayerManagerMySQL;
 import de.simonsator.partyandfriends.spigot.placeholders.mvdw.FriendCountPlaceHolderMVDW;
 import de.simonsator.partyandfriends.spigot.placeholders.mvdw.FriendRequestCountPlaceHolderMVDW;
 import de.simonsator.partyandfriends.spigot.placeholders.placeholderapi.FriendCountPlaceHolderPlaceholderAPI;
 import de.simonsator.partyandfriends.spigot.placeholders.placeholderapi.FriendRequestCountPlaceholderAPI;
-import de.simonsator.partyandfriends.utilities.disable.Disabler;
+import de.simonsator.partyandfriends.spigot.utilities.disable.Disabler;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 

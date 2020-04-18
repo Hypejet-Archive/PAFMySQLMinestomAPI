@@ -1,4 +1,4 @@
-package de.simonsator.partyandfriends.utilities.disable;
+package de.simonsator.partyandfriends.spigot.utilities.disable;
 
 import java.util.ArrayList;
 import java.util.List;
