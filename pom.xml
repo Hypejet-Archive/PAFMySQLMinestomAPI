@@ -7,6 +7,9 @@
 	<groupId>de.simonsator</groupId>
 	<artifactId>Party-and-Friends-MySQL-Edition-Spigot-API</artifactId>
 	<version>1.4.6</version>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 	<repositories>
 		<repository>
 			<id>spigot-repo</id>
