@@ -5,7 +5,6 @@ import de.simonsator.partyandfriends.spigot.pafplayers.manager.PAFPlayerManagerM
 import de.simonsator.partyandfriends.spigot.placeholders.mvdw.FriendCountPlaceHolderMVDW;
 import de.simonsator.partyandfriends.spigot.placeholders.mvdw.FriendRequestCountPlaceHolderMVDW;
 import de.simonsator.partyandfriends.spigot.placeholders.placeholderapi.FriendCountPlaceHolderPlaceholderAPI;
-import de.simonsator.partyandfriends.spigot.placeholders.placeholderapi.FriendRequestCountPlaceholderAPI;
 import de.simonsator.partyandfriends.spigot.utilities.disable.Disabler;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -31,7 +30,6 @@ public class Main extends JavaPlugin {
 			}
 			if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
 				new FriendCountPlaceHolderPlaceholderAPI(plugin).register();
-				new FriendRequestCountPlaceholderAPI(plugin).register();
 			}
 		}, 10);
 	}

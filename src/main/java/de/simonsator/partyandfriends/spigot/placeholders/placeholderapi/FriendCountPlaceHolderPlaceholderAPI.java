@@ -1,11 +1,12 @@
 package de.simonsator.partyandfriends.spigot.placeholders.placeholderapi;
 
 import de.simonsator.partyandfriends.spigot.api.FriendCountPlaceHolder;
+import de.simonsator.partyandfriends.spigot.api.FriendRequestCountPlaceHolder;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
-public class FriendCountPlaceHolderPlaceholderAPI extends PlaceholderExpansion implements FriendCountPlaceHolder {
+public class FriendCountPlaceHolderPlaceholderAPI extends PlaceholderExpansion implements FriendCountPlaceHolder, FriendRequestCountPlaceHolder {
 	private final boolean IS_ONLINE_SERVER;
 
 	@Override
@@ -39,11 +40,17 @@ public class FriendCountPlaceHolderPlaceholderAPI extends PlaceholderExpansion i
 
 	@Override
 	public String onPlaceholderRequest(Player pPlayer, String pIdentifier) {
-		if (pIdentifier.equals("friendcount"))
+		if (pIdentifier.equals("friendcount")) {
 			if (IS_ONLINE_SERVER)
 				return getFriendCount(pPlayer.getUniqueId()).toString();
 			else
 				return getFriendCount(pPlayer.getName()).toString();
+		} else if (pIdentifier.equals("friendrequestcount")) {
+			if (IS_ONLINE_SERVER)
+				return getFriendRequestCount(pPlayer.getUniqueId()).toString();
+			else
+				return getFriendRequestCount(pPlayer.getName()).toString();
+		}
 		return null;
 	}
 }
