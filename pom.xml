@@ -17,11 +17,11 @@
 		</repository>
 		<repository>
 			<id>ghac Repo</id>
-			<url>http://nexus.ghac.de/content/repositories/snapshots/</url>
+			<url>https://nexus.ghac.de/content/repositories/snapshots/</url>
 		</repository>
 		<repository>
 			<id>placeholderapi</id>
-			<url>http://repo.extendedclip.com/content/repositories/placeholderapi/</url>
+			<url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
 		</repository>
 	</repositories>
 	<dependencies>
