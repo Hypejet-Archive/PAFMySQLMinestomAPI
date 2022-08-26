@@ -79,4 +79,10 @@ public class PAFPlayerMySQL extends PAFPlayerClass {
 		return PAFPlayerManagerMySQL.getConnection().hasRequestFrom(ID, ((PAFPlayerMySQL) pPlayer.getPAFPlayer()).getPlayerID());
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof PAFPlayerMySQL)
+			return ((PAFPlayerMySQL) obj).getPlayerID() == ID;
+		return super.equals(obj);
+	}
 }
