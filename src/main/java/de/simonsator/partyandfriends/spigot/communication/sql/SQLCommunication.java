@@ -1,5 +1,7 @@
 package de.simonsator.partyandfriends.spigot.communication.sql;
 
+import de.simonsator.partyandfriends.spigot.error.ErrorReporter;
+
 import java.sql.*;
 import java.util.Properties;
 
@@ -96,6 +98,8 @@ public abstract class SQLCommunication {
 			return DriverManager.getConnection(URL, properties);
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
+			new ErrorReporter("§cParty and Friends was either not able to connect to the MySQL database or to login into the MySQL database. " +
+					"Please correct your MySQL data in the config.yml. If you need further help contact Simonsator via Discord (@Simonsator#5834), PM him (https://www.spigotmc.org/conversations/add?to=simonsator ) or write an email to him (support@simonsator.de). Please don't forget to send him the latets.log file. Also please don't write a bad review without giving him 24 hours time to fix the problem.");
 		}
 		return null;
 	}
