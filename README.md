@@ -4,6 +4,7 @@
 PAFPlayer pafPlayer = PAFPlayerManager.getInstance().getPlayer(bukkitPlayer.getUniqueId());
 // Use methods of PAFPlayer to get data. For example: pafPlayer.getFriends();
 ```
+[JavaDoc](https://simonsator.de/JavaDoc/PartyAndFriendsForBungeeCordAPIForSpigotPlugins/)
 ## Maven
 ```
 <repositories>
