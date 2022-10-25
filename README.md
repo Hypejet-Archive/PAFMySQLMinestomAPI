@@ -25,4 +25,5 @@ PAFPlayer pafPlayer = PAFPlayerManager.getInstance().getPlayer(bukkitPlayer.getU
     <version>1.5.4-RELEASE</version>
     <scope>provided</scope>
 </dependency>
-</dependencies>```
+</dependencies>
+```
