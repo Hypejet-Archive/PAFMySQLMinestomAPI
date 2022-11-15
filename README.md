@@ -2,7 +2,7 @@
 
 ## How to use
 
-```
+```java
 PAFPlayer pafPlayer = PAFPlayerManager.getInstance().getPlayer(bukkitPlayer.getUniqueId());
 // Use methods of PAFPlayer to get data. For example: pafPlayer.getFriends();
 ```
@@ -11,7 +11,7 @@ PAFPlayer pafPlayer = PAFPlayerManager.getInstance().getPlayer(bukkitPlayer.getU
 
 ## Maven
 
-```
+```xml
 <repositories>
     <repository>
         <id>simonsators-repo</id>
