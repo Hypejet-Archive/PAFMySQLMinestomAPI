@@ -1,9 +1,0 @@
-MySQL:
-  Host: localhost
-  Port: 3306
-  Username: root
-  Password: Password
-  Database: friends
-  TablePrefix: fr_
-  UseSSL: false
-IsOnlineServer: true

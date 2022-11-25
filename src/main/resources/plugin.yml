@@ -1,7 +1,0 @@
-main: de.simonsator.partyandfriends.spigot.main.Main
-name: FriendsAPIForPartyAndFriends
-version: ${project.version}
-author: Simonsator
-load: STARTUP
-softdepend: [ PlaceholderAPI]
-api-version: 1.13
