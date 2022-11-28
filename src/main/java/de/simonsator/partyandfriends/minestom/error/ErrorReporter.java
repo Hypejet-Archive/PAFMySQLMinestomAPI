@@ -24,6 +24,6 @@ public class ErrorReporter implements Listener<PlayerSpawnEvent> {
 			pEvent.getPlayer().sendMessage(ERROR_MESSAGE);
 		});
 
-		return null;
+		return node;
 	}
 }
