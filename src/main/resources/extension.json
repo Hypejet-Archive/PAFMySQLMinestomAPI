@@ -1,5 +1,5 @@
 {
   "entrypoint": "de.simonsator.partyandfriends.minestom.main.Main",
-  "name": "friendsapiforpartyandfriends",
+  "name": "FriendsAPIForPAF",
   "version": "1.5.4-RELEASE"
 }
