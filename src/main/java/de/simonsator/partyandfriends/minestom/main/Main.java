@@ -51,6 +51,7 @@ public class Main extends Extension {
 				f.createNewFile();
 				OutputStream stream = new FileOutputStream(f);
 				stream.write(bytes);
+				configResource.close();
 				stream.close();
 				file = f;
 			} catch (IOException e) {
