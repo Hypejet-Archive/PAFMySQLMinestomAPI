@@ -1,29 +1,23 @@
 package de.simonsator.partyandfriends.minestom.error;
 
 import de.simonsator.partyandfriends.minestom.main.Main;
-import me.heroostech.citystom.listener.Listener;
 import net.minestom.server.entity.Player;
 import net.minestom.server.event.EventFilter;
 import net.minestom.server.event.EventNode;
 import net.minestom.server.event.player.PlayerSpawnEvent;
 
-public class ErrorReporter implements Listener<PlayerSpawnEvent> {
+public class ErrorReporter {
 	private final String ERROR_MESSAGE;
 
 	public ErrorReporter(String pErrorMessage) {
 		ERROR_MESSAGE = pErrorMessage;
 		System.out.println(pErrorMessage);
-		Main.getInstance().registerEvent(this);
+		Main.getInstance().getEventNode().addChild(node());
 	}
 
-	@Override
-	public EventNode<PlayerSpawnEvent> events() {
+	private EventNode<PlayerSpawnEvent> node() {
 		EventNode<PlayerSpawnEvent> node = EventNode.type("spawn", EventFilter.from(PlayerSpawnEvent.class, Player.class, PlayerSpawnEvent::getPlayer));
-
-		node.addListener(PlayerSpawnEvent.class, pEvent -> {
-			pEvent.getPlayer().sendMessage(ERROR_MESSAGE);
-		});
-
+		node.addListener(PlayerSpawnEvent.class, pEvent -> pEvent.getPlayer().sendMessage(ERROR_MESSAGE));
 		return node;
 	}
 }

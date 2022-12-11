@@ -5,13 +5,12 @@ plugins {
 }
 
 repositories {
-    mavenLocal()
     mavenCentral()
     maven("https://jitpack.io/")
 }
 
 dependencies {
-    implementation("me.heroostech.citystom:CityStom:v1.0.0")
+    implementation("com.github.CityWideMC:CityStom:-SNAPSHOT")
     implementation("com.moandjiezana.toml:toml4j:0.7.2")
     compileOnly("com.github.Minestom:Minestom:-SNAPSHOT")
 }
