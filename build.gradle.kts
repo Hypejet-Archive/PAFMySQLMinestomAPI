@@ -10,7 +10,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.CityWideMC:CityStom:-SNAPSHOT")
+    implementation("com.github.HypeJet:HypeStom:82a67118f6")
     implementation("com.moandjiezana.toml:toml4j:0.7.2")
     compileOnly("com.github.Minestom:Minestom:-SNAPSHOT")
 }
